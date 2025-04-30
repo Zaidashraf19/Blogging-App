@@ -4,7 +4,7 @@ const Navbar = () => {
     return (
         <>
             <div className="flex justify-between bg-black text-white p-5 text-xl">
-                <div className="font-extrabold">
+                <div className="font-extrabold underline decoration-double underline-offset-8">
                     Blogging App
                 </div>
                 <div>
