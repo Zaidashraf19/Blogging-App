@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom"
 
 const Post = () => {
-    const navigate = useNavigate();
 
+    // FUNCTION TO GO ON HOME PAGE
+    const navigate = useNavigate();
     const handleGoBack = (e) => {
         e.preventDefault();
         navigate(-1);
