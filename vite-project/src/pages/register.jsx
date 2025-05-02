@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [msg, setMsg] = useState('');
-
-    // FUNCTION TO GO BACK ON LIGIN PAGE
     const navigate = useNavigate();
     const handleGoBack = (e) => {
         e.preventDefault();
