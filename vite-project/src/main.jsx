@@ -4,9 +4,9 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './Layout'
 import Register from './pages/register'
-import Home from './pages/home'
+import Feed from './pages/feed'
 import Login from './pages/login'
-import Post from './pages/post'
+import Addpost from './pages/addpost'
 
 const router = createBrowserRouter([
   {
@@ -22,12 +22,12 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: 'home',
-        element: <Home /> 
+        path: 'feed',
+        element: <Feed /> 
       },
       {
-        path: 'home/post',
-        element: <Post />
+        path: 'feed/addpost',
+        element: <Addpost />
       }
     ]
   }
