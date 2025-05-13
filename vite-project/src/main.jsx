@@ -2,11 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './Layout'
-import Register from './pages/register'
-import Feed from './pages/feed'
-import Login from './pages/login'
-import Addpost from './pages/addpost'
+import Layout from './Layout.jsx'
+import Register from './pages/register.jsx'
+import Feed from './pages/feed.jsx'
+import Login from './pages/login.jsx'
+import Addpost from './pages/addpost.jsx'
 
 const router = createBrowserRouter([
   {

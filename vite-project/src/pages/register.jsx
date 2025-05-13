@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../lib/firebase";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection , getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
     const [msg, setMsg] = useState('');
@@ -19,7 +19,7 @@ const Register = () => {
     // SIGNUP FUNCTION OF FIREBASE
     const submit = async (event) => {
         event.preventDefault();
-        
+
         // PASSWORD MATCH
         if (password.current.value !== retypePassword.current.value) {
             setMsg("Passwords do not match!!");
@@ -38,7 +38,6 @@ const Register = () => {
         try {
             const docRef = await addDoc(collection(db, "usersname"), {
                 name: username.current.value,
-                uid: auth.currentUser.uid
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -46,10 +45,11 @@ const Register = () => {
         }
 
 
-        // LOGIN
+        // CREATE USER
         try {
             const response = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
             setMsg("Registered Successfully");
+
             // Resetting the input fields
             email.current.value = '';
             password.current.value = '';
@@ -57,11 +57,10 @@ const Register = () => {
             username.current.value = '';
             navigate('/')
         } catch (error) {
-            setMsg("Registration failed!!");
+            setMsg("Registration failed!!", error.message);
         }
-
     };
-
+    
     return (
         <>
             <div className="flex items-center justify-center">
@@ -80,6 +79,5 @@ const Register = () => {
         </>
     );
 }
-
 
 export default Register;
