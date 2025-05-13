@@ -29,7 +29,6 @@ const Feed = () => {
         const postArr = [];
         querySnapshot.forEach((doc) => {
             postArr.push({ id: doc.id, ...doc.data() })
-            // console.log(postArr);
         });
         setPosts(postArr)
     }
