@@ -4,7 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 const Login = () => {
-    const navigate = useNavigate()
+
+    // NAVIGATION
+    const navigate = useNavigate();
+
+    // USESTATE
     const [msg, setMsg] = useState('');
 
 
@@ -29,10 +33,11 @@ const Login = () => {
                     setMsg("Sucessfully Login!!");
                     email.current.value = ''
                     password.current.value = ''
-                    navigate('feed');
+                    navigate('/');
                 }
                 ).catch((error) => {
-                    setMsg("LOgin failed!!")
+                    console.log(error.message);
+                    setMsg("LOgin failed!!" + error.message)
                 });
         }
     }
@@ -41,16 +46,31 @@ const Login = () => {
     return (
         <>
             <div className="flex items-center justify-center">
-                <div className="p-5 rounded bg-[#ff8355] shadow shadow-[#ff8355] text-lg">
-                    <h1 className="text-center text-2xl font-bold">Sign In</h1> <br /> <hr /> <br />
+                <div className="bg-white shadow-md rounded-lg p-8">
+                    <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
+
                     <form onSubmit={signin}>
-                        <h2 className="text-center uppercase m-2 underline text-xl"> {msg}</h2>
-                        <input type="email" ref={email} placeholder="Enter email address" className="w-full border border-[#dddfe2] rounded p-3" /> <br /> <br />
-                        <input type="password" ref={password} placeholder="Password" className="w-full border border-[#dddfe2] rounded p-3" /> <br /> <br />
-                        <button className="w-full border border-[#dddfe2] rounded bg-black text-white cursor-pointer p-1"> Login  </button> <br /> <br />
+                        <h2 className="text-center uppercase m-2 underline text-xl text-red-800">{msg}</h2>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">Email Address</label>
+                            <input ref={email} type="email" placeholder="Enter email address" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">Enter Password</label>
+                            <input ref={password} type="password" placeholder="Enter Password" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <button className="w-full bg-black text-white font-semibold rounded-lg p-2 hover:bg-gray-800 transition duration-200">Login</button>
                     </form>
-                    <p className="cursor-pointer text-center text-sm hover:underline">Forget Password ?</p> <br /> <hr /> <br />
-                    <Link to={'register'}><button className="w-full border border-[#dddfe2] rounded bg-black text-white cursor-pointer p-1 items-center text-center"> Create New Account </button> </Link>
+
+                    <p className="cursor-pointer text-center text-sm hover:underline mt-4 text-red-800">Forget Password?</p>
+                    <hr className="my-4" />
+
+                    <Link to={'register'}>
+                        <button className="w-full bg-black text-white font-semibold rounded-lg p-2 hover:bg-gray-800 transition duration-200">Create New Account</button>
+                    </Link>
                 </div>
             </div>
         </>

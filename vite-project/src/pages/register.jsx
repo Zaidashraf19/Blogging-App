@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
+
+    // USESTATE
     const [msg, setMsg] = useState('');
+
+    // NAVIGATION
     const navigate = useNavigate();
 
 
@@ -14,6 +18,7 @@ const Register = () => {
     const email = useRef();
     const password = useRef();
     const retypePassword = useRef();
+    const image = useRef()
 
 
     // SIGNUP FUNCTION OF FIREBASE
@@ -26,7 +31,6 @@ const Register = () => {
             return;
         }
 
-
         // FILL ALL INPUTS
         if (!email.current.value || !password.current.value || !retypePassword.current.value || !username.current.value) {
             setMsg("Fill all the fields please!!");
@@ -38,6 +42,8 @@ const Register = () => {
         try {
             const docRef = await addDoc(collection(db, "usersname"), {
                 name: username.current.value,
+                email: email.current.value,
+                img: image.current.value
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -55,24 +61,44 @@ const Register = () => {
             password.current.value = '';
             retypePassword.current.value = '';
             username.current.value = '';
-            navigate('/')
+            navigate('login')
         } catch (error) {
-            setMsg("Registration failed!!", error.message);
+            setMsg("Registration failed!!" + error.message);
         }
     };
-    
     return (
         <>
             <div className="flex items-center justify-center">
-                <div className="p-5 rounded bg-[#ff8355] shadow shadow-[#ff8355] text-lg">
-                    <h1 className="text-center text-xl font-bold">Create a new account</h1> <br /> <hr /> <br />
+                <div className="bg-white shadow-md rounded-lg p-2.5">
+                    <h2 className="text-2xl font-semibold text-center mb-6">Create Your Account</h2>
+                    <h3 className="text-center uppercase m-2 underline text-xl text-red-800">{msg}</h3>
                     <form onSubmit={submit}>
-                        <h2 className="uppercase m-2 underline text-xl">{msg}</h2>
-                        <input type="text" ref={username} placeholder="Enter Username" className="w-full border border-[#dddfe2] rounded p-3" /> <br /><br />
-                        <input type="email" ref={email} placeholder="Enter email address" className="w-full border border-[#dddfe2] rounded p-3" /> <br /> <br />
-                        <input type="password" ref={password} placeholder="New Password" className="w-full border border-[#dddfe2] rounded p-3" /> <br /> <br />
-                        <input type="password" ref={retypePassword} placeholder="Retype Password" className="w-full border border-[#dddfe2] rounded p-3" /> <br /> <br />
-                        <button className="w-full border border-[#dddfe2] rounded bg-black text-white cursor-pointer p-1">Sign Up</button> <br /> <br />
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="img">Profile Image</label>
+                            <input ref={image} type="file" className="text-sm text-gray-500 border border-gray-300 p-1 rounded-lg cursor-pointer" />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">Username</label>
+                            <input ref={username} type="text" placeholder="Enter Username" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">Email Address</label>
+                            <input ref={email} type="email" placeholder="Enter email address" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">New Password</label>
+                            <input ref={password} type="password" placeholder="New Password" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <div className="mb-6">
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="retypePassword">Retype Password</label>
+                            <input ref={retypePassword} type="password" placeholder="Retype Password" className="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-500" />
+                        </div>
+
+                        <button className="w-full bg-black text-white font-semibold rounded-lg p-2 hover:bg-gray-800 transition duration-200">Sign Up</button>
                     </form>
                 </div>
             </div>

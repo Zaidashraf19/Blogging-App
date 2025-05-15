@@ -12,13 +12,14 @@ const Addpost = () => {
     // GETTING VALUE OF INPUT
     const text = useRef();
     const image = useRef();
+    const imageURL = useRef()
 
     // CREATING FUNCTION TO SEND DATA TO FIRESTORE
     const post = async (event) => {
         event.preventDefault();
 
         // UPLOAD IMAGE OR ADD TEXT
-        if (!text.current.value && !image.current.value) {
+        if (!text.current.value && !image.current.value && !imageURL.current.value) {
             alert("Kindly upload image or add text")
             return;
         }
@@ -27,6 +28,8 @@ const Addpost = () => {
             const docRef = await addDoc(collection(db, "posts"), {
                 content: text.current.value,
                 uid: auth.currentUser.uid,
+                imgURL: imageURL.current.value,
+                // img: "",
                 PostAt: serverTimestamp(),
             });
             console.log("Document written with ID: ", docRef.id);
@@ -35,7 +38,7 @@ const Addpost = () => {
         }
 
         // WHEN THE USER SHARES THE POST THIS FUNCTION WILL TAKE THE USER TO FEED PAGE
-        navigate('/feed')
+        navigate('/')
 
         // INPUT FIELD EMPTY
         text.current.value = ''
@@ -50,6 +53,7 @@ const Addpost = () => {
             const uid = user.uid;
         } else {
             navigate('/')
+            alert("Please login !!")
         }
     });
 
@@ -61,17 +65,13 @@ const Addpost = () => {
                     className="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full max-h-[600px] overflow-y-auto flex flex-col gap-6"
                 >
                     <h1 className="text-2xl font-bold text-center text-gray-800">Upload Image & Description</h1>
-                    <label
-                        htmlFor="imageInput"
-                        className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-purple-500 rounded-lg p-6 hover:border-purple-700 transition-colors"
-                    >
-                        <input
-                            ref={image}
-                            type="file"
-                            accept="image/*"
-                            // className="hidden"
-                        />
-                    </label>
+                    <input ref={image} type="file" className="text-sm text-gray-500 border border-gray-300 p-1 rounded-lg cursor-pointer" />
+                    <input
+                        type="text"
+                        placeholder="Image URL"
+                        ref={imageURL}
+                        className="border border-gray-300 rounded-lg p-2"
+                    />
                     <textarea
                         placeholder="Write a description..."
                         rows={4}

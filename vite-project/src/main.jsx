@@ -14,19 +14,19 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '',
+        path: 'login',
         element: <Login />
       },
       {
-        path: 'register',
+        path: 'login/register',
         element: <Register />
       },
       {
-        path: 'feed',
-        element: <Feed /> 
+        path: '',
+        element: <Feed />
       },
       {
-        path: 'feed/addpost',
+        path: 'addpost',
         element: <Addpost />
       }
     ]
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-      <RouterProvider router={router} />
-    </StrictMode>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 )
