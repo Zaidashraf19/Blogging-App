@@ -16,6 +16,7 @@ const Feed = () => {
     signOut(auth)
       .then(() => {
         localStorage.clear();
+        alert("USER SIGNOUT !!");
       })
       .catch((error) => {});
   };

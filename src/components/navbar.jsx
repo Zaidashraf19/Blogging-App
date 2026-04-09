@@ -15,7 +15,7 @@ const Navbar = () => {
       if (user) {
         setUsername(Useremail);
       } else {
-        setUsername(<Link to={"login"}>Login</Link>);
+        setUsername(<Link to={"login"}>SIGN IN</Link>);
       }
     });
 
@@ -48,7 +48,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="text-xs sm:text-lg">
-          {Useremail || <Link to={"login"}>Login</Link>}
+          {Useremail || <Link to={"login"}>SIGN IN</Link>}
         </div>
       </div>
       <br /> <br />

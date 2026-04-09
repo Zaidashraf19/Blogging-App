@@ -36,6 +36,7 @@ const Login = () => {
           email.current.value = "";
           password.current.value = "";
           navigate("/");
+          window.location.reload();
         })
         .catch((error) => {
           setMsg("LOgin failed!!" + error.message);
@@ -85,7 +86,7 @@ const Login = () => {
             </div>
 
             <button className="w-full bg-black text-white font-semibold rounded-lg p-2 hover:bg-gray-800 transition duration-200">
-              Login
+              SIGN IN
             </button>
           </form>
 
