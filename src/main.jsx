@@ -1,40 +1,52 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './Layout.jsx'
-import Register from './pages/register.jsx'
-import Feed from './pages/feed.jsx'
-import Login from './pages/login.jsx'
-import Addpost from './pages/addpost.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from "./Layout.jsx";
+import Register from "./pages/register.jsx";
+import Feed from "./pages/feed.jsx";
+import Login from "./pages/login.jsx";
+import Addpost from "./pages/addpost.jsx";
 
+const ProtectedRoute = ({ children }) => {
+  const isloggedin = localStorage.getItem("Useremail");
+  return isloggedin ? children : <Navigate to="/login" />;
+};
 const router = createBrowserRouter([
   {
-    path: '',
+    path: "",
     element: <Layout />,
     children: [
       {
-        path: 'login',
-        element: <Login />
+        path: "login",
+        element: <Login />,
       },
       {
-        path: 'login/register',
-        element: <Register />
+        path: "login/register",
+        element: <Register />,
       },
       {
-        path: '',
-        element: <Feed />
+        path: "",
+        element: <Feed />,
       },
       {
-        path: 'addpost',
-        element: <Addpost />
-      }
-    ]
-  }
-])
+        path: "addpost",
+        element: (
+          <ProtectedRoute>
+            <Addpost />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
-)
+  </StrictMode>,
+);
