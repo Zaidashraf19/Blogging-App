@@ -45,6 +45,7 @@ const Register = () => {
         name: username.current.value,
         email: email.current.value,
         img: image.current.value,
+        password: password?.current?.value,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
