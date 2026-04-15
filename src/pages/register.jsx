@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../lib/firebase";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 const Register = () => {
   // USESTATE
@@ -39,19 +39,6 @@ const Register = () => {
       return;
     }
 
-    // SENDING USERNAME TO DATABASE
-    try {
-      const docRef = await addDoc(collection(db, "usersname"), {
-        name: username.current.value,
-        email: email.current.value,
-        img: image.current.value,
-        password: password?.current?.value,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-
     // CREATE USER
     try {
       const response = await createUserWithEmailAndPassword(
@@ -60,6 +47,19 @@ const Register = () => {
         password.current.value,
       );
       localStorage.setItem("USERNAME", username?.current?.value);
+      // SENDING USERNAME TO DATABASE
+      try {
+        const docRef = await addDoc(collection(db, "usersname"), {
+          uid: response.user.uid,
+          name: username.current.value,
+          email: email.current.value,
+          img: image.current.value,
+          password: password?.current?.value,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
 
       setMsg("Registered Successfully");
 
@@ -73,6 +73,7 @@ const Register = () => {
       setMsg("Registration failed!!" + error.message);
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-center">

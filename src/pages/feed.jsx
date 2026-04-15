@@ -17,6 +17,7 @@ const Feed = () => {
       .then(() => {
         localStorage.clear();
         alert("USER SIGNOUT !!");
+        window?.location?.reload();
       })
       .catch((error) => {});
   };
@@ -79,9 +80,12 @@ const Feed = () => {
           return (
             <div key={item.id} className="bg-white rounded shadow w-70">
               {username.map((user, index) => {
+                console.log("USER: ", user?.uid);
+                console.log("ITEM: ", item?.uid);
+
                 return (
                   <div key={user.id}>
-                    {user?.id === item?.UserId && (
+                    {user?.uid === item?.uid && (
                       <p className="text-xl flex gap-3 p-2">
                         <span>
                           <img
@@ -110,6 +114,8 @@ const Feed = () => {
                   <button
                     onClick={async () => {
                       await deleteDoc(doc(db, "posts", item.id));
+                      alert("POST DELETED !");
+                      window?.location?.reload();
                     }}
                     className="bg-[#8A0000] text-white border rounded p-2 cursor-pointer"
                   >

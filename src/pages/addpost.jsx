@@ -13,30 +13,30 @@ const Addpost = () => {
   // NAVIGATE
   const navigate = useNavigate();
 
-  const [user, setUser] = useState([]);
-  let userid;
+  // const [user, setUser] = useState([]);
+  // let userid;
 
   // GETTING VALUE OF INPUT
   const text = useRef();
   const image = useRef();
   const imageURL = useRef();
 
-  // GETTING USER ID
-  const getuserid = async () => {
-    const querySnapshot = await getDocs(collection(db, "usersname"));
-    const userArr = [];
-    querySnapshot.forEach((doc) => {
-      userArr.push({ id: doc.id, ...doc.data() });
-    });
-    setUser(userArr);
-  };
-  useEffect(() => {
-    getuserid();
-  }, []);
+  // // GETTING USER ID
+  // const getuserid = async () => {
+  //   const querySnapshot = await getDocs(collection(db, "usersname"));
+  //   const userArr = [];
+  //   querySnapshot.forEach((doc) => {
+  //     userArr.push({ id: doc.id, ...doc.data() });
+  //   });
+  //   setUser(userArr);
+  // };
+  // useEffect(() => {
+  //   getuserid();
+  // }, []);
 
-  user.map((data, index) => {
-    userid = data?.id;
-  });
+  // user.map((data, index) => {
+  //   userid = data?.id;
+  // });
 
   // CREATING FUNCTION TO SEND DATA TO FIRESTORE
   const post = async (event) => {
@@ -54,7 +54,7 @@ const Addpost = () => {
         content: text.current.value,
         uid: auth.currentUser.uid,
         imgURL: imageURL.current.value,
-        UserId: userid,
+        // UserId: h,
         PostAt: serverTimestamp(),
       });
       console.log("Document written with ID: ", docRef.id);
